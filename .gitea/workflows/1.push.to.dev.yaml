@@ -10,6 +10,8 @@ jobs:
     runs-on: linux_host
     steps:
       - uses: actions/checkout@v3
-      - name: Log into dev.wsys, pull changes and build project
-        run: ssh ${{ secrets.HOST }} "cd ${{ secrets.TARGET_FOLDER }}; git pull; npm run build-storybook;"
+      - name: Push files to dev repo folder
+        run: git remote add dev-wsys ssh://${{ secrets.HOST }}:${{ secrets.TARGET_FOLDER }}; git push dev-wsys development:development
+      - name: Log into dev.wsys and build project
+        run: ssh ${{ secrets.HOST }} "cd ${{ secrets.TARGET_FOLDER }}; npm run build-storybook;"
       - run: echo "🍏 This job's status is ${{ job.status }}."
