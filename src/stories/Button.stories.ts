@@ -1,58 +1,63 @@
 import type { StoryObj, Meta } from '@storybook/html';
 import { fn } from '@storybook/test';
-import type { ButtonProps } from './Button';
+import type { Button } from './Button';
 import { createButton } from './Button';
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
-  title: 'Example/Button',
+  title: 'Components/Button',
   tags: ['autodocs'],
+
+  parameters: {
+    controls: { sort: 'none' },
+  },
+
   render: (args) => {
-    // You can either use a function to create DOM elements or use a plain html string!
-    // return `<div>${label}</div>`;
     return createButton(args);
   },
+
   argTypes: {
-    backgroundColor: { control: 'color' },
-    label: { control: 'text' },
-    onClick: { action: 'onClick' },
-    primary: { control: 'boolean' },
-    size: {
+    onClick: { action: 'clicked' },
+    buttonLabel: {
+      name: 'Button text',
+      description: 'Modify button label text',
+      control: 'text',
+    },
+    buttonSize: {
+      name: 'Button size',
       control: { type: 'select' },
-      options: ['small', 'medium', 'large'],
+      options: ['small', 'medium'],
+    },
+    iconDisplay: {
+      name: 'Enable icon',
+      description: 'Show or hide button icon',
+      control: 'boolean'
+    },
+    iconOnly: {
+      name: 'Display only icon',
+      description: 'Toggle only button icon and remove label text',
+      control: 'boolean',
+      if: { arg: 'iconDisplay', eq: true },
+    },
+    iconPosition: {
+      name: 'Position icon',
+      description: 'Position icon before or after label',
+      control: { type: 'select' },
+      options: ['left', 'right'],
+      if: { arg: 'iconDisplay', eq: true },
     },
   },
-  // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
+
   args: { onClick: fn() },
-} satisfies Meta<ButtonProps>;
+
+} satisfies Meta<Button>;
 
 export default meta;
-type Story = StoryObj<ButtonProps>;
+type Story = StoryObj<Button>;
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Primary: Story = {
   args: {
-    primary: true,
-    label: 'Button',
-  },
-};
-
-export const Secondary: Story = {
-  args: {
-    label: 'Button',
-  },
-};
-
-export const Large: Story = {
-  args: {
-    size: 'large',
-    label: 'Button',
-  },
-};
-
-export const Small: Story = {
-  args: {
-    size: 'small',
-    label: 'Button',
+    iconDisplay: false,
+    iconOnly: false,
+    buttonLabel: 'Button',
   },
 };
