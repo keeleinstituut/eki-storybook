@@ -13,7 +13,7 @@ jobs:
       - name: Clear remote folder
         run: ssh dev.wsys.ee "rm -rf /data01/virt108664/domeenid/www.dev.wsys.ee/htdocs/dev/eki_storybook/src/*"
       - name: Copy files via SSH to target server
-        run: rsync -az -e ssh ./src dev.wsys.ee:/data01/virt108664/domeenid/www.dev.wsys.ee/htdocs/dev/eki_storybook/
+        run: rsync -az -e ssh ./package.json ./package-lock.json ./.storybook ./src dev.wsys.ee:/data01/virt108664/domeenid/www.dev.wsys.ee/htdocs/dev/eki_storybook/
       - name: Log into dev.wsys and build project
         run: ssh dev.wsys.ee "cd /data01/virt108664/domeenid/www.dev.wsys.ee/htdocs/dev/eki_storybook/; npm i; npm run build-storybook;"
       - run: echo "🍏 This job's status is ${{ job.status }}."
