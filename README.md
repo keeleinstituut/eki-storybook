@@ -36,6 +36,12 @@ Example:
 npm run storybook
 ```
 
+Running on storybook on seperate port.
+Example running on port `6007`
+```bash
+npx storybook dev -p 6007
+```
+
 ## Running project
 
 ```bash
