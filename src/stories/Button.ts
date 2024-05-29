@@ -35,7 +35,7 @@ export const createButton = ({
 }: ButtonProps) => {
   const btn = document.createElement('button');
   btn.type = 'button';
-  btn.innerText = label + '-:';
+  btn.innerText = label + '??';
   if (onClick) {
     btn.addEventListener('click', onClick);
   }
