@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Push files to dev repo folder
-        run: git remote add dev-wsys ssh://${{ secrets.HOST }}:${{ secrets.TARGET_FOLDER }}
+        run: git remote add dev-wsys ssh://dev.wsys.ee:/data01/virt108664/domeenid/www.dev.wsys.ee/htdocs/dev/eki_storybook/
       - run: git status
       - run: git branch
       - run: git log
