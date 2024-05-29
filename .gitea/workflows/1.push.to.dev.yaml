@@ -14,6 +14,7 @@ jobs:
         run: ssh dev.wsys.ee "cd /data01/virt108664/domeenid/www.dev.wsys.ee/htdocs/dev/eki_storybook/; git checkout master;"
       - name: Push files to dev repo folder
         run: git remote add dev-wsys ssh://dev.wsys.ee:/data01/virt108664/domeenid/www.dev.wsys.ee/htdocs/dev/eki_storybook/
+      - run: git pull dev-wsys development
       - run: git push dev-wsys development
       - name: Log into dev.wsys and build project
         run: ssh dev.wsys.ee "cd /data01/virt108664/domeenid/www.dev.wsys.ee/htdocs/dev/eki_storybook/; git checkout development; npm run build-storybook;"
