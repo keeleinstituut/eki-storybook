@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Copy files via SSH to target server
-        run: rsync -az -e ssh ./src dev.wsys.ee:/data01/virt108664/domeenid/www.dev.wsys.ee/htdocs/dev/eki_storybook/src/
+        run: rsync -az -e ssh ./src dev.wsys.ee:/data01/virt108664/domeenid/www.dev.wsys.ee/htdocs/dev/eki_storybook/
       - name: Log into dev.wsys and build project
-        run: ssh dev.wsys.ee "cd /data01/virt108664/domeenid/www.dev.wsys.ee/htdocs/dev/eki_storybook/; npm run build-storybook;"
+        run: ssh dev.wsys.ee "cd /data01/virt108664/domeenid/www.dev.wsys.ee/htdocs/dev/eki_storybook/; npm i; npm run build-storybook;"
       - run: echo "🍏 This job's status is ${{ job.status }}."
