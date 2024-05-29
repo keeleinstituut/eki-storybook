@@ -1,0 +1,15 @@
+name: Push changes to dev repo folder
+run-name: ${{ gitea.actor }} is building frontend 🚀
+on:
+  push:
+    branches:
+      - development
+
+jobs:
+  Building-Angular-Frontend:
+    runs-on: linux_host
+    steps:
+      - uses: actions/checkout@v3
+      - name: Push files to dev repo folder
+        run: git remote add origin ssh://${{ secrets.HOST }}:${{ secrets.TARGET_FOLDER }}; git push origin development:development
+      - run: echo "🍏 This job's status is ${{ job.status }}."
