@@ -13,6 +13,7 @@ jobs:
       - name: Push files to dev repo folder
         run: git remote add dev-wsys ssh://${{ secrets.HOST }}:${{ secrets.TARGET_FOLDER }}
       - run: git status
+      - run: git branch
       - run: git log
       - run: git status
       - run: git remote -v
