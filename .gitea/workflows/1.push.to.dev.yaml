@@ -12,8 +12,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Push files to dev repo folder
         run: git remote add dev-wsys ssh://dev.wsys.ee:/data01/virt108664/domeenid/www.dev.wsys.ee/htdocs/dev/eki_storybook/
-      - run: git pull dev-wsys development --rebase
-      - run: git push dev-wsys development
+      - run: git push -f dev-wsys development
       - name: Log into dev.wsys and build project
         run: ssh dev.wsys.ee "cd /data01/virt108664/domeenid/www.dev.wsys.ee/htdocs/dev/eki_storybook/; git checkout development; npm run build-storybook;"
       - run: echo "🍏 This job's status is ${{ job.status }}."
