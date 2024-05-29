@@ -17,7 +17,6 @@ jobs:
       - run: git log
       - run: git status
       - run: git remote -v
-      - run: git log origin/HEAD
       - run: git pull dev-wsys development:development
       - run: git push dev-wsys development:development
       - name: Log into dev.wsys and build project
