@@ -1,48 +1,60 @@
-import "./css/button.css";
+import './css/button.css';
 
 export interface Button {
-  buttonSize?: "small" | "medium";
-  buttonLabel: string;
+  buttonSize?: 'small' | 'medium';
+  buttonLabel?: string;
   iconDisplay?: boolean;
   iconOnly?: boolean;
-  iconPosition?: "left" | "right";
+  iconPosition?: 'left' | 'right';
+  icon?: string;
   onClick?: () => void;
 }
 
 export const createButton = ({
-  buttonSize = "medium",
+  buttonSize = 'medium',
   buttonLabel,
   iconDisplay = false,
   iconOnly = false,
-  iconPosition = "left",
+  iconPosition = 'left',
+  icon,
   onClick,
 }: Button) => {
-  const btn = document.createElement("button");
-  btn.type = "button";
+  const btn = document.createElement('button');
+  btn.type = 'button';
 
-  const labelText = document.createElement("span");
-  labelText.innerText = buttonLabel;
+  const iconElement = icon ? document.createElement('i') : null;
+  
+  if (iconElement && icon) {
+    iconElement.setAttribute('data-feather', icon);
+  }
 
-  if (iconDisplay && !iconOnly) {
-    const iconElement = document.createElement("i");
-    iconElement.className = "storybook-button__icon";
+  if (iconOnly && iconElement) {
+    btn.appendChild(iconElement);
+  } else {
+    const labelText = document.createElement('span');
+    
+    if(buttonLabel) {
+      labelText.innerText = buttonLabel;
+    }
 
-    if (iconPosition === "left") {
-      btn.appendChild(iconElement);
-      btn.appendChild(labelText);
+    if (iconDisplay && iconElement) {
+      if (iconPosition === 'left') {
+        btn.appendChild(iconElement);
+        btn.appendChild(labelText);
+      } else {
+        btn.appendChild(labelText);
+        btn.appendChild(iconElement);
+      }
     } else {
       btn.appendChild(labelText);
-      btn.appendChild(iconElement);
     }
-  } else {
-    btn.appendChild(labelText);
   }
 
   if (onClick) {
-    btn.addEventListener("click", onClick);
+    btn.addEventListener('click', onClick);
   }
 
-  btn.className = ["storybook-button", `storybook-button--${buttonSize}`].join(" ");
+  btn.className = ['storybook-button', `storybook-button--${buttonSize}`].join(' ');
 
   return btn;
 };

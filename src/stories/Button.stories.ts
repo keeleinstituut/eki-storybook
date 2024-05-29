@@ -2,8 +2,9 @@ import type { StoryObj, Meta } from '@storybook/html';
 import { fn } from '@storybook/test';
 import type { Button } from './Button';
 import { createButton } from './Button';
+import feather from 'feather-icons';
 
-const meta = {
+const meta: Meta<Button> = {
   title: 'Components/Button',
   tags: ['autodocs'],
 
@@ -11,16 +12,17 @@ const meta = {
     controls: { sort: 'none' },
   },
 
-  render: (args) => {
-    return createButton(args);
-  },
-
   argTypes: {
-    onClick: { action: 'clicked' },
+    onClick: {
+      name: 'Click event',
+      description: 'Event triggered on click',
+      action: 'clicked'
+    },
     buttonLabel: {
       name: 'Button text',
       description: 'Modify button label text',
       control: 'text',
+      if: { arg: 'iconOnly', eq: false },
     },
     buttonSize: {
       name: 'Button size',
@@ -45,19 +47,69 @@ const meta = {
       options: ['left', 'right'],
       if: { arg: 'iconDisplay', eq: true },
     },
+    icon: {
+      name: 'Icon',
+      control: { type: 'text' },
+      description: 'Feather icon name (e.g., "circle")',
+      if: { arg: 'iconDisplay', eq: true },
+    },
   },
 
   args: { onClick: fn() },
+  
+  render: (args) => {
+    const button = createButton(args);
+    document.body.appendChild(button);
+    feather.replace();
+    document.body.removeChild(button);
+
+    return button;
+  },
 
 } satisfies Meta<Button>;
 
 export default meta;
 type Story = StoryObj<Button>;
 
-export const Primary: Story = {
+export const DefaultButton: Story = {
   args: {
+    buttonSize: 'medium',
+    buttonLabel: 'Default button',
     iconDisplay: false,
     iconOnly: false,
-    buttonLabel: 'Button',
+    iconPosition: 'left',
+    icon: 'circle',
+  },
+};
+
+export const ButtonWithLeftIcon: Story = {
+  args: {
+    buttonSize: 'medium',
+    buttonLabel: 'Button with left icon',
+    iconDisplay: true,
+    iconOnly: false,
+    iconPosition: 'left',
+    icon: 'circle',
+  },
+};
+
+export const ButtonWithRightIcon: Story = {
+  args: {
+    buttonSize: 'medium',
+    buttonLabel: 'Button with right icon',
+    iconDisplay: true,
+    iconOnly: false,
+    iconPosition: 'right',
+    icon: 'circle',
+  },
+};
+
+export const ButtonWithOnlyIcon: Story = {
+  args: {
+    buttonSize: 'medium',
+    iconDisplay: true,
+    iconOnly: true,
+    iconPosition: 'left',
+    icon: 'circle',
   },
 };
