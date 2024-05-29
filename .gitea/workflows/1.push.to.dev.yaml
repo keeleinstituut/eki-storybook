@@ -10,6 +10,8 @@ jobs:
     runs-on: linux_host
     steps:
       - uses: actions/checkout@v3
+      - name: Clear remote folder
+        run: ssh dev.wsys.ee "rm -rf /data01/virt108664/domeenid/www.dev.wsys.ee/htdocs/dev/eki_storybook/src/*"
       - name: Copy files via SSH to target server
         run: rsync -az -e ssh ./src dev.wsys.ee:/data01/virt108664/domeenid/www.dev.wsys.ee/htdocs/dev/eki_storybook/
       - name: Log into dev.wsys and build project
