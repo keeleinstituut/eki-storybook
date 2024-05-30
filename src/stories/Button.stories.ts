@@ -1,7 +1,6 @@
 import type { StoryObj, Meta } from '@storybook/html';
 import { fn } from '@storybook/test';
-import type { Button } from './Button';
-import { createButton } from './Button';
+import { createButton, Button } from './Button';
 import feather from 'feather-icons';
 
 const meta: Meta<Button> = {
@@ -24,10 +23,17 @@ const meta: Meta<Button> = {
       control: 'text',
       if: { arg: 'iconOnly', eq: false },
     },
+    buttonType: {
+      name: 'Button type',
+      description: 'Change button type',
+      control: { type: 'select' },
+      options: ['primary', 'secondary'],
+    },
     buttonSize: {
       name: 'Button size',
+      description: 'Change button size',
       control: { type: 'select' },
-      options: ['small', 'medium'],
+      options: ['large', 'small'],
     },
     iconDisplay: {
       name: 'Enable icon',
@@ -55,7 +61,13 @@ const meta: Meta<Button> = {
     },
   },
 
-  args: { onClick: fn() },
+  args: {
+    buttonLabel: 'Default button',
+    buttonType: 'primary',
+    buttonSize: 'large',
+    icon: 'plus',
+    onClick: fn()
+  },
   
   render: (args) => {
     const button = createButton(args);
@@ -73,43 +85,37 @@ type Story = StoryObj<Button>;
 
 export const DefaultButton: Story = {
   args: {
-    buttonSize: 'medium',
     buttonLabel: 'Default button',
     iconDisplay: false,
     iconOnly: false,
-    iconPosition: 'left',
-    icon: 'circle',
   },
 };
 
 export const ButtonWithLeftIcon: Story = {
   args: {
-    buttonSize: 'medium',
     buttonLabel: 'Button with left icon',
     iconDisplay: true,
     iconOnly: false,
     iconPosition: 'left',
-    icon: 'circle',
+    icon: 'plus',
   },
 };
 
 export const ButtonWithRightIcon: Story = {
   args: {
-    buttonSize: 'medium',
     buttonLabel: 'Button with right icon',
     iconDisplay: true,
     iconOnly: false,
     iconPosition: 'right',
-    icon: 'circle',
+    icon: 'plus',
   },
 };
 
 export const ButtonWithOnlyIcon: Story = {
   args: {
-    buttonSize: 'medium',
     iconDisplay: true,
     iconOnly: true,
     iconPosition: 'left',
-    icon: 'circle',
+    icon: 'plus',
   },
 };

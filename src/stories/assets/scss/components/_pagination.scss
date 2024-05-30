@@ -1,0 +1,9 @@
+.pagination {
+  &__item {
+    &--active {
+      a {
+        background-color: red;
+      }
+    }
+  }
+}

@@ -1,7 +1,8 @@
-import './css/button.css';
+import './assets/scss/components/_button.scss';
 
 export interface Button {
-  buttonSize?: 'small' | 'medium';
+  buttonType: 'primary' | 'secondary';
+  buttonSize: 'large' | 'small';
   buttonLabel?: string;
   iconDisplay?: boolean;
   iconOnly?: boolean;
@@ -11,16 +12,17 @@ export interface Button {
 }
 
 export const createButton = ({
-  buttonSize = 'medium',
-  buttonLabel,
+  buttonType = 'primary',
+  buttonSize = 'large',
+  buttonLabel = 'Default button',
   iconDisplay = false,
   iconOnly = false,
   iconPosition = 'left',
   icon,
   onClick,
-}: Button) => {
-  const btn = document.createElement('button');
-  btn.type = 'button';
+}: Button): HTMLButtonElement => {
+  const button = document.createElement('button');
+  button.type = 'button';
 
   const iconElement = icon ? document.createElement('i') : null;
   
@@ -29,32 +31,50 @@ export const createButton = ({
   }
 
   if (iconOnly && iconElement) {
-    btn.appendChild(iconElement);
+    button.appendChild(iconElement);
   } else {
-    const labelText = document.createElement('span');
-    
-    if(buttonLabel) {
-      labelText.innerText = buttonLabel;
-    }
+    if (iconDisplay && (iconElement || buttonLabel)) {
+      const labelText = document.createElement('span');
 
-    if (iconDisplay && iconElement) {
-      if (iconPosition === 'left') {
-        btn.appendChild(iconElement);
-        btn.appendChild(labelText);
-      } else {
-        btn.appendChild(labelText);
-        btn.appendChild(iconElement);
+      if (buttonLabel) {
+        labelText.innerText = buttonLabel;
       }
-    } else {
-      btn.appendChild(labelText);
+
+      if (iconElement) {
+        if (iconPosition === 'left') {
+          button.appendChild(iconElement);
+          button.appendChild(labelText);
+        } else {
+          button.appendChild(labelText);
+          button.appendChild(iconElement);
+        }
+      } else {
+        button.appendChild(labelText);
+      }
+    } else if (buttonLabel) {
+      button.innerText = buttonLabel;
     }
   }
 
   if (onClick) {
-    btn.addEventListener('click', onClick);
+    button.addEventListener('click', onClick);
   }
 
-  btn.className = ['storybook-button', `storybook-button--${buttonSize}`].join(' ');
+  const buttonClasses = [
+    'button',
+    `button--${buttonSize}`,
+    `button--${buttonType}`
+  ];
 
-  return btn;
+  if (iconDisplay || iconOnly) {
+    buttonClasses.push('button--icon');
+  }
+
+  if (iconOnly) {
+    buttonClasses.push('button--icon-only');
+  }
+
+  button.className = buttonClasses.join(' ');
+
+  return button;
 };

@@ -1,35 +1,54 @@
-import './css/radioButton.css';
+import './assets/scss/components/_radio-button.scss';
 
 export interface RadioButton {
-  label: string;
   name: string;
-  value: string;
-  checked?: boolean;
-  onChange?: () => void;
+  count: number;
+  radioBehind: boolean;
+  onChange?: (event: Event) => void;
 }
 
 export const createRadioButton = ({
-  label,
   name,
-  value,
-  checked = false,
+  count,
+  radioBehind,
   onChange,
-}: RadioButton) => {
-  const labelElement = document.createElement('label');
-  labelElement.className = 'radio-button';
+}: RadioButton): HTMLDivElement => {
+  const selectedValue = "option-1";
+  const container = document.createElement('div');
+  container.classList.add('radio-container');
 
-  const inputElement = document.createElement('input');
-  inputElement.type = 'radio';
-  inputElement.name = name;
-  inputElement.value = value;
-  inputElement.checked = checked;
+  for (let i = 0; i < count; i++) {
+    const value = `option-${i + 1}`;
 
-  if (onChange) {
-    inputElement.addEventListener('change', onChange);
+    const radioButtonContainer = document.createElement('div');
+    radioButtonContainer.classList.add('radio-button-container');
+
+    const radioButton = document.createElement('input');
+    radioButton.type = 'radio';
+    radioButton.name = 'radioButtonsDefault';
+    radioButton.value = value;
+    radioButton.checked = value === selectedValue;
+
+    if (onChange) {
+      radioButton.addEventListener('change', onChange);
+    }
+
+    const labelElement = document.createElement('label');
+    labelElement.htmlFor = value;
+    labelElement.textContent = `${name} ${i + 1}`;
+    
+    radioButton.id = value;
+
+    if(radioBehind) {
+      radioButtonContainer.appendChild(labelElement);
+      radioButtonContainer.appendChild(radioButton);
+    } else {
+      radioButtonContainer.appendChild(radioButton);
+      radioButtonContainer.appendChild(labelElement);
+    }
+
+    container.appendChild(radioButtonContainer);
   }
 
-  labelElement.appendChild(inputElement);
-  labelElement.appendChild(document.createTextNode(label));
-
-  return labelElement;
-};
+  return container;
+}

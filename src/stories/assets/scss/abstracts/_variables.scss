@@ -1,0 +1,26 @@
+// -------------------------------------------------------------------------
+// This file contains all Storybook Sass variables.
+// -------------------------------------------------------------------------
+
+/// Brand colors
+$color-primary: #173148;
+$color-secondary: #D7E5F2;
+$color-trietary: rgba(23, 49, 72, 0.75);
+$color-quaternary: var(--color-brand-quaternary);
+$color-accent: var(--color-brand-accent);
+$color-first-gradient: var(--color-brand-first-gradient);
+$color-second-gradient: var(--color-brand-second-gradient);
+
+/// More colors
+
+// White
+$color-white: #FFF !default;
+
+// Black
+$color-black: #000 !default;
+
+/// Brand other variables
+$border-radius-round: 10rem !default;
+
+/// Font families
+$font-body: 'Inter', sans-serif !default;
