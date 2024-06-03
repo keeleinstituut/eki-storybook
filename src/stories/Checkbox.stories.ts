@@ -49,7 +49,7 @@ const meta: Meta<Checkbox> = {
 export default meta;
 type Story = StoryObj<Checkbox>;
 
-export const DynamicCount: Story = {
+export const DynamicCheckboxes: Story = {
   args: {
     count: 3,
   },

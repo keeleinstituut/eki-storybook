@@ -14,7 +14,6 @@ const preview: Preview = {
       prettier: {
         tabWidth: 4,
         useTabs: true,
-        printWidth: 200,
       },
     },
   },
