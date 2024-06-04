@@ -1,4 +1,4 @@
-import './assets/scss/components/_radio-button.scss';
+import '../assets/scss/components/_radio-button.scss';
 
 export interface RadioButton {
   name: string;
@@ -15,7 +15,6 @@ export const createRadioButton = ({
 }: RadioButton): HTMLDivElement => {
   const selectedValue = "option-1";
   const container = document.createElement('div');
-  container.classList.add('radio-container');
 
   for (let i = 0; i < count; i++) {
     const value = `option-${i + 1}`;

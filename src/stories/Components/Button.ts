@@ -1,4 +1,4 @@
-import './assets/scss/components/_button.scss';
+import '../assets/scss/components/_button.scss';
 
 export interface Button {
   buttonType: 'primary' | 'secondary';

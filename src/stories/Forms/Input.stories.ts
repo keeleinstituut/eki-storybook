@@ -3,7 +3,7 @@ import { createInput, Input } from './Input';
 import feather from 'feather-icons';
 
 const meta: Meta<Input> = {
-  title: 'Components/Input',
+  title: 'Forms/Input',
   tags: ['autodocs'],
 
   argTypes: {
@@ -37,12 +37,12 @@ const meta: Meta<Input> = {
   },
   
   render: (args) => {
-    const button = createInput(args);
-    document.body.appendChild(button);
+    const input = createInput(args);
+    document.body.appendChild(input);
     feather.replace();
-    document.body.removeChild(button);
+    document.body.removeChild(input);
 
-    return button;
+    return input;
   },
 
 } satisfies Meta<Input>;

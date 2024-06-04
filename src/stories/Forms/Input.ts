@@ -1,4 +1,4 @@
-import './assets/scss/components/_input.scss';
+import '../assets/scss/components/_input.scss';
 
 export interface Input {
   inputLabel: string;
@@ -14,7 +14,6 @@ export const createInput = ({
   inputIcon = '',
 }: Input): HTMLDivElement => {
   const inputContainer = document.createElement('div');
-  inputContainer.classList.add('input-container');
   
   if (inputLabel) {
     const label = document.createElement('label');

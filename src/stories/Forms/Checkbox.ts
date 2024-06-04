@@ -1,4 +1,4 @@
-import './assets/scss/components/_checkbox.scss';
+import '../assets/scss/components/_checkbox.scss';
 
 export interface Checkbox {
   name: string;
@@ -15,7 +15,6 @@ export const createCheckbox = ({
 }: Checkbox): HTMLDivElement => {
   const selectedValue = "option-1";
   const container = document.createElement('div');
-  container.classList.add('checkbox-container');
 
   for (let i = 0; i < count; i++) {
     const value = `option-${i + 1}`;

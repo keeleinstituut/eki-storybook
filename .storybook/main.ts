@@ -1,6 +1,10 @@
 import type { StorybookConfig } from "@storybook/html-vite";
 
 const config: StorybookConfig = {
+  framework: {
+    name: "@storybook/html-vite",
+    options: {},
+  },
   stories: [
     "../src/**/*.mdx",
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
@@ -10,13 +14,13 @@ const config: StorybookConfig = {
     "@storybook/addon-essentials",
     "@storybook/addon-interactions",
     "@storybook/addon-controls",
-    "@whitespace/storybook-addon-html",
     "storybook-addon-pseudo-states",
     "@storybook/preset-scss",
+    "@whitespace/storybook-addon-html",
+    "@chromatic-com/storybook"
   ],
-  framework: {
-    name: "@storybook/html-vite",
-    options: {},
+  docs: {
+    autodocs: 'tag',
   },
 };
 

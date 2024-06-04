@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { fn } from '@storybook/test';
-import { createCheckbox, Checkbox } from './Checkbox';
+import { createRadioButton, RadioButton } from './RadioButton';
 
-const meta: Meta<Checkbox> = {
-  title: 'Components/Checkbox',
+const meta: Meta<RadioButton> = {
+  title: 'Forms/RadioButton',
   tags: ['autodocs'],
 
   parameters: {
@@ -12,12 +12,12 @@ const meta: Meta<Checkbox> = {
 
   argTypes: {
     name: { 
-      name: 'Checkboxes label',
+      name: 'Radio buttons label',
       description: 'Name attribute for the radio buttons',
       control: 'text',
     },
     count: { 
-      name: 'Checkboxes count',
+      name: 'Radio buttons count',
       description: 'Number of radio buttons to display',
       control: {
         type: 'range',
@@ -26,31 +26,32 @@ const meta: Meta<Checkbox> = {
         step: 1
       },
     },
-    checkboxBehind: {
-      name: 'Checkbox behind',
+    radioBehind: {
+      name: 'Radio button behind',
       description: 'Move radio button behind label',
       control: 'boolean',
     },
   },
 
   args: {
-    name: 'checkbox',
+    name: 'Radio button',
     count: 3,
-    checkboxBehind: false,
+    radioBehind: false,
     onChange: fn()
   },
   
   render: (args) => {
-    const checkbox = createCheckbox(args);
-    return checkbox;
+    const radioButton = createRadioButton(args);
+    return radioButton;
   },
-} satisfies Meta<Checkbox>;
+} satisfies Meta<RadioButton>;
 
 export default meta;
-type Story = StoryObj<Checkbox>;
+type Story = StoryObj<RadioButton>;
 
-export const DynamicCheckboxes: Story = {
+export const DynamicCount: Story = {
   args: {
+    name: 'Radio button',
     count: 3,
   },
 };

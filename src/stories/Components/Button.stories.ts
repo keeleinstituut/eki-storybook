@@ -9,6 +9,9 @@ const meta: Meta<Button> = {
 
   parameters: {
     controls: { sort: 'none' },
+    pseudo: { active: true,
+      focus: true
+     }
   },
 
   argTypes: {

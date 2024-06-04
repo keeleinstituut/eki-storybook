@@ -1,4 +1,4 @@
-import './assets/scss/components/_pagination.scss';
+import '../assets/scss/components/_pagination.scss';
 
 export interface Pagination {
   count: number;
