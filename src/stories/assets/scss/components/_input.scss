@@ -1,0 +1,81 @@
+@import '../main';
+
+.input {
+  padding: .75rem 3rem .75rem 1rem;
+  border: 1px solid $color-primary;
+  border-radius: .5rem;
+  box-shadow: 0px 1px 2px 0px rgba(21, 21, 21, 0.08);
+
+  &__label {
+    display: block;
+    margin-bottom: .4rem;
+    font-size: .75rem;
+    color: $color-primary;
+  }
+
+  &-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+
+    svg {
+      position: absolute;
+      right: 1rem;
+    }
+  }
+
+  &--small {
+    height: 2rem;
+    font-size: .875rem;
+    
+    &::placeholder {
+      color: $color-trietary;
+    }
+  }
+
+  &--medium {
+    height: 2.5rem;
+  }
+
+  &--large {
+    height: 3rem;
+  }
+
+  &:focus {
+    background-color: $color-secondary;
+    border: 2px solid $color-primary;
+    outline: none;
+  }
+
+  &:disabled {
+    border: none;
+    background-color: #C4D2DD;
+  }
+
+  &:disabled,
+  &::placeholder {
+    color: rgba(23, 49, 72, 0.25);
+  }
+}
+
+.helper-text {
+  display: block;
+  margin-top: .4rem;
+  font-size: .75rem;
+  color: $color-trietary;
+}
+
+.disabled {
+  .input__label {
+    color: rgba(23, 49, 72, 0.25);
+  }
+
+  .helper-text {
+    color: rgba(23, 49, 72, 0.25);
+  }
+
+  svg {
+    opacity: .25;
+  }
+}

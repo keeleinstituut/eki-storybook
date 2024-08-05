@@ -7,22 +7,26 @@ const meta: Meta<Input> = {
   tags: ['autodocs'],
 
   argTypes: {
+    inputSize: {
+      name: 'Input size',
+      description: 'Change input size',
+      control: { type: 'select' },
+      options: ['large', 'medium', 'small'],
+    },
     inputLabel: { 
       name: 'Input label',
       description: 'Label before input field',
       control: 'text',
     },
-    inputIconDisplay: {
-      name: 'Enable icon',
-      description: 'Show or hide button icon',
+    inputLabelDisplay: {
+      name: 'Enable label',
+      descritprion: 'Show or hide input label',
       control: 'boolean'
     },
-    inputIconPosition: {
-      name: 'Position icon',
-      description: 'Position icon inside input',
-      control: { type: 'select' },
-      options: ['left', 'right'],
-      if: { arg: 'inputIconDisplay', eq: true },
+    inputIconDisplay: {
+      name: 'Enable icon',
+      description: 'Show or hide input icon',
+      control: 'boolean'
     },
     inputIcon: {
       name: 'Icon',
@@ -30,10 +34,33 @@ const meta: Meta<Input> = {
       description: 'Feather icon name (e.g., "circle")',
       if: { arg: 'inputIconDisplay', eq: true },
     },
+    placeholder: {
+      name: 'Placeholder',
+      control: 'text',
+      description: 'Placeholder text for the input field',
+    },
+    inputHelperTextDisplay: {
+      name: 'Enable helper text',
+      description: 'Show or hide helper text',
+      control: 'boolean'
+    },
+    inputHelperText: {
+      name: 'Helper text',
+      control: { type: 'text' },
+      description: 'Helper text for the input field',
+    },
+    inputDisabled: {
+      name: 'Disable input field',
+      control: 'boolean',
+      description: 'Disable input field',
+    },
   },
 
   args: {
+    inputSize: 'large',
     inputLabel: 'Label',
+    placeholder: 'Placeholder',
+    inputHelperText: 'This is a helper text.',
   },
   
   render: (args) => {
@@ -50,24 +77,37 @@ const meta: Meta<Input> = {
 export default meta;
 type Story = StoryObj<Input>;
 
-export const InputWithNoIcon: Story = {
+export const DefaultInput: Story = {
   args: {
-    inputIconDisplay: false,
+    inputLabelDisplay: false,
+  }
+};
+
+export const InputWithLabel: Story = {
+  args: {
+    inputLabelDisplay: true,
+  }
+};
+
+export const InputWithHelperText: Story = {
+  args: {
+    inputLabelDisplay: true,
+    inputHelperTextDisplay: true,
+  }
+};
+
+export const InputWithDecorator: Story = {
+  args: {
+    inputIconDisplay: true,
+    inputIcon: 'eye',
   },
 };
 
-export const InputWithLeftIcon: Story = {
+export const InputWithEverything: Story = {
   args: {
+    inputLabelDisplay: true,
     inputIconDisplay: true,
-    inputIconPosition: 'left',
-    inputIcon: 'user',
-  },
-};
-
-export const InputWithRightIcon: Story = {
-  args: {
-    inputIconDisplay: true,
-    inputIconPosition: 'right',
-    inputIcon: 'user',
+    inputIcon: 'eye',
+    inputHelperTextDisplay: true,
   },
 };
