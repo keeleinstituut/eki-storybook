@@ -3,27 +3,37 @@ import '../assets/scss/components/_input.scss';
 export interface Input {
   inputSize: 'large' | 'medium' | 'small';
   inputLabelDisplay?: boolean;
-  inputLabel: string;
+  inputLabel?: string;
   inputIconDisplay?: boolean;
   inputIcon?: string;
   placeholder?: string;
   inputHelperTextDisplay?: boolean;
   inputHelperText?: string;
   inputDisabled?: boolean;
+  inputError?: boolean;
 }
 
 export const createInput = ({
   inputSize = 'large',
   inputLabelDisplay = false,
-  inputLabel,
+  inputLabel = '',
   inputIconDisplay = false,
   inputIcon = '',
   placeholder = '',
   inputHelperTextDisplay = false,
   inputHelperText = '',
   inputDisabled = false,
+  inputError = false,
 }: Input): HTMLDivElement => {
   const inputContainer = document.createElement('div');
+
+  if (inputDisabled) {
+    inputError = false;
+  }
+
+  if (inputError) {
+    inputDisabled = false;
+  }
 
   const inputClasses = [
     'input',
@@ -34,7 +44,7 @@ export const createInput = ({
     const label = document.createElement('label');
     label.htmlFor = 'inputField';
     label.innerText = inputLabel;
-    label.classList.add('input__label');
+    label.classList.add('input-label');
     inputContainer.appendChild(label);
   }
 
@@ -46,6 +56,10 @@ export const createInput = ({
   input.name = 'inputField';
   input.id = 'inputField';
   input.classList.add('input-field');
+
+  if (inputError) {
+    inputWrapper.classList.add('error');
+  }
 
   if (placeholder) {
     input.placeholder = placeholder;
@@ -71,7 +85,7 @@ export const createInput = ({
 
   if (inputHelperTextDisplay && inputHelperText) {
     const helperText = document.createElement('span');
-    helperText.classList.add('helper-text');
+    helperText.classList.add('input-helper-text');
     helperText.innerText = inputHelperText;
     inputContainer.appendChild(helperText);
   }

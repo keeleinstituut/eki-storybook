@@ -13,15 +13,16 @@ const meta: Meta<Input> = {
       control: { type: 'select' },
       options: ['large', 'medium', 'small'],
     },
-    inputLabel: { 
-      name: 'Input label',
-      description: 'Label before input field',
-      control: 'text',
-    },
     inputLabelDisplay: {
       name: 'Enable label',
-      descritprion: 'Show or hide input label',
-      control: 'boolean'
+      description: 'Show or hide input label',
+      control: 'boolean',
+    },
+    inputLabel: { 
+      name: 'Input label',
+      control: { type: 'text' },
+      description: 'Label before input field',
+      if: { arg: 'inputLabelDisplay', eq: true },
     },
     inputIconDisplay: {
       name: 'Enable icon',
@@ -42,7 +43,7 @@ const meta: Meta<Input> = {
     inputHelperTextDisplay: {
       name: 'Enable helper text',
       description: 'Show or hide helper text',
-      control: 'boolean'
+      control: 'boolean',
     },
     inputHelperText: {
       name: 'Helper text',
@@ -51,8 +52,14 @@ const meta: Meta<Input> = {
     },
     inputDisabled: {
       name: 'Disable input field',
-      control: 'boolean',
       description: 'Disable input field',
+      control: 'boolean'
+    },
+    inputError: {
+      name: 'Show/hide error',
+      description: 'Show/hide error',
+      control: 'boolean',
+      if: { arg: 'inputDisabled', eq: false },
     },
   },
 
@@ -78,9 +85,7 @@ export default meta;
 type Story = StoryObj<Input>;
 
 export const DefaultInput: Story = {
-  args: {
-    inputLabelDisplay: false,
-  }
+
 };
 
 export const InputWithLabel: Story = {
@@ -91,7 +96,6 @@ export const InputWithLabel: Story = {
 
 export const InputWithHelperText: Story = {
   args: {
-    inputLabelDisplay: true,
     inputHelperTextDisplay: true,
   }
 };
