@@ -6,7 +6,7 @@ export interface Input {
   inputLabel?: string;
   inputIconDisplay?: boolean;
   inputIcon?: string;
-  placeholder?: string;
+  inputPlaceholder?: string;
   inputHelperTextDisplay?: boolean;
   inputHelperText?: string;
   inputDisabled?: boolean;
@@ -19,7 +19,7 @@ export const createInput = ({
   inputLabel = '',
   inputIconDisplay = false,
   inputIcon = '',
-  placeholder = '',
+  inputPlaceholder = '',
   inputHelperTextDisplay = false,
   inputHelperText = '',
   inputDisabled = false,
@@ -61,8 +61,8 @@ export const createInput = ({
     inputWrapper.classList.add('error');
   }
 
-  if (placeholder) {
-    input.placeholder = placeholder;
+  if (inputPlaceholder) {
+    input.placeholder = inputPlaceholder;
   }
 
   if (inputDisabled) {

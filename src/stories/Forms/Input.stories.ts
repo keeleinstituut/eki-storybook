@@ -35,7 +35,7 @@ const meta: Meta<Input> = {
       description: 'Feather icon name (e.g., "circle")',
       if: { arg: 'inputIconDisplay', eq: true },
     },
-    placeholder: {
+    inputPlaceholder: {
       name: 'Placeholder',
       control: 'text',
       description: 'Placeholder text for the input field',
@@ -49,6 +49,7 @@ const meta: Meta<Input> = {
       name: 'Helper text',
       control: { type: 'text' },
       description: 'Helper text for the input field',
+      if: { arg: 'inputHelperTextDisplay', eq: true},
     },
     inputDisabled: {
       name: 'Disable input field',
@@ -65,9 +66,15 @@ const meta: Meta<Input> = {
 
   args: {
     inputSize: 'large',
+    inputPlaceholder: 'Placeholder',
+    inputLabelDisplay: false,
     inputLabel: 'Label',
-    placeholder: 'Placeholder',
+    inputHelperTextDisplay: false,
     inputHelperText: 'This is a helper text.',
+    inputIconDisplay: false,
+    inputIcon: 'eye',
+    inputDisabled: false,
+    inputError: false,
   },
   
   render: (args) => {
