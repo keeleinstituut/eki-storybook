@@ -26,6 +26,9 @@ $color-black: #000 !default;
 $color-light-orange: #FFF5F1 !default;
 $color-orange: #DE6837 !default;
 
+// Red
+$color-red: #D32F2F !default;
+
 /// Brand other variables
 $border-radius-round: 10rem !default;
 
@@ -34,3 +37,9 @@ $font-body: 'Inter', sans-serif !default;
 
 /// Error
 $color-error: #E70505 !default;
+
+// Warning
+$color-warning: #EF6C00 !default;
+
+// Success
+$color-success: #2E7D32 !default;

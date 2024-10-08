@@ -11,6 +11,11 @@ const meta: Meta<RadioButton> = {
   },
 
   argTypes: {
+    onClick: {
+      name: 'Click event',
+      description: 'Event triggered on click',
+      action: 'clicked'
+    },
     name: { 
       name: 'Radio buttons label',
       description: 'Name attribute for the radio buttons',
@@ -26,18 +31,72 @@ const meta: Meta<RadioButton> = {
         step: 1
       },
     },
-    radioBehind: {
-      name: 'Radio button behind',
-      description: 'Move radio button behind label',
+    labelPosition: {
+      name: 'Label Position',
+      description: 'Position of the label relative to the radio button',
+      control: { type: 'select' },
+      options: ['start', 'end', 'top', 'bottom'],
+    },
+    radioSize: {
+      name: 'Radio button size',
+      description: 'Radio button size',
+      control: { type: 'select' },
+      options: ['small', 'medium', 'large'],
+    },
+    listPosition: {
+      name: 'List position',
+      description: 'Set list position either vertical or horizontal',
+      control: { type: 'select' },
+      options: ['vertical', 'horizontal'],
+    },
+    btnState: {
+      name: 'Radio button state',
+      description: 'Radio button state',
+      control: { type: 'select' },
+      options: ['default', 'error', 'warning', 'success'],
+    },
+    displayFormLabel: {
+      name: 'Display form label',
+      description: 'Display form label before radio buttons',
       control: 'boolean',
     },
+    formLabel: {
+      name: 'Form label',
+      description: 'Form label',
+      control: 'text',
+      if: { arg: 'displayFormLabel', eq: true },
+    },
+    displayHelperText: {
+      name: 'Display helper text',
+      description: 'Display helper text after radio buttons',
+      control: 'boolean',
+    },
+    helperText: {
+      name: 'Helper text',
+      description: 'Helper text',
+      control: 'text',
+      if: { arg: 'displayHelperText', eq: true },
+    },
+    disabled: {
+      name: 'Disable button',
+      description: 'Disable button',
+      control: 'boolean',
+    }
   },
 
   args: {
-    name: 'Radio button',
+    name: 'Label',
     count: 3,
-    radioBehind: false,
-    onChange: fn()
+    labelPosition: 'end',
+    radioSize: 'small',
+    listPosition: 'vertical',
+    btnState: 'default',
+    displayFormLabel: false,
+    formLabel: 'Label',
+    displayHelperText: false,
+    helperText: 'Helper text',
+    disabled: false,
+    onClick: fn(),
   },
   
   render: (args) => {
@@ -49,9 +108,90 @@ const meta: Meta<RadioButton> = {
 export default meta;
 type Story = StoryObj<RadioButton>;
 
-export const DynamicCount: Story = {
+export const DefaultRadio: Story = {
+
+};
+
+export const RadioHorizontal: Story = {
   args: {
-    name: 'Radio button',
-    count: 3,
-  },
+    listPosition: 'horizontal',
+  }
+};
+
+export const RadioWithLabel: Story = {
+  args: {
+    displayFormLabel: true,
+    formLabel: 'Label'
+  }
+};
+
+export const RadioWithHelperText: Story = {
+  args: {
+    displayHelperText: true,
+    helperText: 'Helper text'
+  }
+};
+
+export const RadioWithLabelAndHelperText: Story = {
+  args: {
+    displayFormLabel: true,
+    formLabel: 'Label',
+    displayHelperText: true,
+    helperText: 'Helper text'
+  }
+};
+
+export const LargeRadioButton: Story = {
+  args: {
+    count: 1,
+    radioSize: 'large',
+  }
+};
+
+export const MediumRadioButton: Story = {
+  args: {
+    count: 1,
+    radioSize: 'medium',
+  }
+};
+
+export const SmallRadioButton: Story = {
+  args: {
+    count: 1,
+    radioSize: 'small',
+  }
+};
+
+export const RadioPostitonTop: Story = {
+  args: {
+    count:  1,
+    labelPosition: 'top',
+  }
+};
+
+export const RadioPostitonEnd: Story = {
+  args: {
+    count:  1,
+    labelPosition: 'end',
+  }
+};
+
+export const RadioPostitonBottom: Story = {
+  args: {
+    count:  1,
+    labelPosition: 'bottom',
+  }
+};
+
+export const RadioPostitonStart: Story = {
+  args: {
+    count:  1,
+    labelPosition: 'start',
+  }
+};
+
+export const RadioDisabled: Story = {
+  args: {
+    disabled: true,
+  }
 };
