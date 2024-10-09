@@ -40,7 +40,7 @@ const meta: Meta<RadioButton> = {
     radioSize: {
       name: 'Radio button size',
       description: 'Radio button size',
-      control: { type: 'select' },
+      control: { type: 'radio' },
       options: ['small', 'medium', 'large'],
     },
     listPosition: {
