@@ -71,7 +71,6 @@
 
     &::before {
       display: block;
-      margin: 5px;
       border: 2px solid $color-black;
       border-radius: 3px;
       opacity: .6;
@@ -81,7 +80,7 @@
     &:checked {
       &::after {
         position: absolute;
-        top: 15px;
+        top: 10px;
         display: block;
         transform: rotate(45deg);
         border-radius: 0;
@@ -173,17 +172,19 @@
       &::before {
         width: 25px;
         height: 25px;
+        border-width: 2.5px;
       }
 
       &:checked {
         &::before {
           background-color: $color-black;
         }
+        
         &::after {
           width: 9px;
           height: 17px;
           border: solid $color-white;
-          border-width: 0 2px 2px 0;
+          border-width: 0 2.5px 2.5px 0;
         }
       }
 
