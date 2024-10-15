@@ -112,27 +112,27 @@ export const DefaultRadio: Story = {
 
 };
 
-export const RadioHorizontal: Story = {
+export const RadioHorizontalOrientation: Story = {
   args: {
     listPosition: 'horizontal',
   }
 };
 
-export const RadioWithLabel: Story = {
+export const RadioFormLabel: Story = {
   args: {
     displayFormLabel: true,
     formLabel: 'Label'
   }
 };
 
-export const RadioWithHelperText: Story = {
+export const RadioHelperText: Story = {
   args: {
     displayHelperText: true,
     helperText: 'Helper text'
   }
 };
 
-export const RadioWithLabelAndHelperText: Story = {
+export const RadioFormLabelAndHelperText: Story = {
   args: {
     displayFormLabel: true,
     formLabel: 'Label',
@@ -162,31 +162,31 @@ export const SmallRadioButton: Story = {
   }
 };
 
-export const RadioPostitonTop: Story = {
+export const RadioLabelTopPostiton: Story = {
   args: {
     count:  1,
     labelPosition: 'top',
   }
 };
 
-export const RadioPostitonEnd: Story = {
-  args: {
-    count:  1,
-    labelPosition: 'end',
-  }
-};
-
-export const RadioPostitonBottom: Story = {
+export const RadioLabelBottomPostiton: Story = {
   args: {
     count:  1,
     labelPosition: 'bottom',
   }
 };
 
-export const RadioPostitonStart: Story = {
+export const RadioLabelStartPostiton: Story = {
   args: {
     count:  1,
     labelPosition: 'start',
+  }
+};
+
+export const RadioLabelEndPostiton: Story = {
+  args: {
+    count:  1,
+    labelPosition: 'end',
   }
 };
 
