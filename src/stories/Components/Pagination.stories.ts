@@ -19,6 +19,12 @@ const meta: Meta<Pagination> = {
         step: 1
       },
     },
+    shape: {
+      name: 'Pagination shape',
+      description: 'Pagination active and hover element shape',
+      control: { type: 'radio' },
+      options: ['circular', 'rounded'],
+    },
     showArrows: {
       name: 'Show arrows',
       description: 'Display navigation arrows',
@@ -32,6 +38,7 @@ const meta: Meta<Pagination> = {
   },
   args: {
     count: 3,
+    shape: 'circular',
     showArrows: false,
     showAll: true,
   },
