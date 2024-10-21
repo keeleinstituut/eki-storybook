@@ -56,9 +56,18 @@ const meta: Meta<Pagination> = {
 export default meta;
 type Story = StoryObj<Pagination>;
 
-export const DynamicPagination: Story = {
+export const CircularPagination: Story = {
   args: {
     count: 3,
+    showArrows: true,
+    showAll: true,
+  },
+};
+
+export const RoundedPagination: Story = {
+  args: {
+    count: 3,
+    shape: 'rounded',
     showArrows: true,
     showAll: true,
   },
