@@ -13,6 +13,9 @@ $color-second-gradient: var(--color-brand-second-gradient);
 
 /// More colors
 
+// Text secondary
+$color-text-secondary: #32383E !default;
+
 // Blue overlay
 $color-overlay: rgba(23, 49, 72, 0.25) !default;
 
@@ -21,6 +24,9 @@ $color-white: #FFF !default;
 
 // Black
 $color-black: #000 !default;
+
+// Gray
+$color-gray: #636B74 !default;
 
 // Orange
 $color-light-orange: #FFF5F1 !default;
@@ -43,3 +49,25 @@ $color-warning: #EF6C00 !default;
 
 // Success
 $color-success: #2E7D32 !default;
+
+// Soft primary
+$color-soft-primary: #12467B !default;
+
+// Soft primary bg
+$color-soft-primary-bg: #E3EFFB !default;
+
+// Outlined primary
+$color-outlined-primary: #0B6BCB !default;
+
+// Soft neutral bg
+$color-soft-neutral-bg: #F0F4F8 !default;
+
+// Outlined neutral
+$color-outlined-neutral: #CDD7E1 !default;
+
+// Background surface
+$color-surface-bg: #FBFCFE !default;
+
+// Border radius
+$border-radius-sm: 6px;
+$border-radius: 8px;

@@ -1,0 +1,127 @@
+@import '../main';
+
+.modal {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: fit-content;
+  min-width: 200px;
+
+  &__top {
+    display: flex;
+    justify-content: space-between;
+
+    h2 {
+      margin: 0;
+      font-size: 16px;
+    }
+  }
+
+  p {
+    margin: 0;
+    color: $color-text-secondary;
+    line-height: 155%;
+  }
+
+  &--small {
+    padding: 16px;
+    border-radius: $border-radius-sm;
+
+    svg {
+      width: 17px;
+      height: 17px;
+    }
+  }
+
+  &--medium {
+    padding: 20px;
+    border-radius: $border-radius;
+
+    svg {
+      width: 21px;
+      height: 21px;
+    }
+  }
+
+  &--large {
+    padding: 24px;
+    border-radius: $border-radius;
+
+    svg {
+      width: 23px;
+      height: 23px;
+    }
+  }
+
+  &--soft {
+    h2 {
+      font-weight: 400;
+    }
+
+    p {
+      font-weight: 500;
+      font-size: 14px;
+    }
+  }
+
+  &--outlined {
+    background-color: $color-surface-bg;
+
+    svg {
+      stroke: $color-gray;
+    }
+
+    h2 {
+      font-weight: 400;
+    }
+
+    p {
+      font-weight: 400;
+      font-size: 18px;
+    }
+  }
+
+  &--primary {
+    &--soft {
+      background-color: $color-soft-primary-bg;
+
+      h2 {
+        color: $color-soft-primary;
+      }
+
+      svg {
+        stroke: $color-soft-primary;
+      }
+    }
+
+    &--outlined {
+      border: 1px solid $color-outlined-primary;
+
+      h2 {
+        color: $color-outlined-primary;
+      }
+    }
+  }
+
+  &--neutral {
+    &--soft {
+      background-color: $color-soft-neutral-bg;
+
+      h2 {
+        color: $color-text-secondary;
+      }
+
+      svg {
+        color: $color-text-secondary;
+      }
+    }
+
+    &--outlined {
+      border: 1px solid $color-outlined-neutral;
+
+      h2 {
+        color: $color-text-secondary;
+      }
+    }
+  }
+}
