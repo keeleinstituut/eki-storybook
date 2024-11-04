@@ -11,12 +11,12 @@ export interface Modal {
 }
 
 export const createModal = ({ 
-  title, 
-  description, 
-  showDescription, 
-  size, 
-  variant, 
-  color 
+  title = 'Modal title', 
+  showDescription = true, 
+  description = 'Description', 
+  size = 'small', 
+  variant = 'soft', 
+  color = 'primary' 
 }: Modal): HTMLDivElement => {
   const modal = document.createElement('div');
   modal.classList.add('modal', `modal--${size}`, `modal--${color}--${variant}`, `modal--${variant}`);

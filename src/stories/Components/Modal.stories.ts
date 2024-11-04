@@ -44,23 +44,80 @@ const meta: Meta<Modal> = {
       name: 'Modal color',
       description: 'Color theme of the modal',
       control: { type: 'select' },
-      options: ['primary', 'neutral', 'danger', 'success'],
+      options: ['primary', 'neutral', 'danger', 'success', 'warning'],
     },
   },
-} satisfies Meta<Modal>;
 
-export default meta;
-
-type Story = StoryObj<Modal>;
-
-export const DefaultModal: Story = {
   args: {
-    title: 'Modal Title',
+    title: 'Modal title',
     showDescription: true,
-    description: 'Description.',
+    description: 'Description',
     size: 'small',
     variant: 'soft',
     color: 'primary',
   },
-  render: (args) => createModal(args),
+
+  render: (args) => {
+    const modal = createModal(args);
+    document.body.appendChild(modal);
+    document.body.removeChild(modal);
+
+    return modal;
+  },
+} satisfies Meta<Modal>;
+
+export default meta;
+type Story = StoryObj<Modal>;
+
+export const DefaultModal: Story = {
+
 };
+
+export const ModalWithoutDescription: Story = {
+  args: {
+    showDescription: false,
+  },
+};
+
+export const ModalMedium: Story = {
+  args: {
+    size: 'medium',
+  },
+};
+
+export const ModalLarge: Story = {
+  args: {
+    size: 'large',
+  },
+};
+
+export const ModalOutlined: Story = {
+  args: {
+    variant: 'outlined',
+  },
+};
+
+export const ModalNeutral: Story = {
+  args: {
+    color: 'neutral',
+  },
+};
+
+export const ModalWarning: Story = {
+  args: {
+    color: 'warning',
+  },
+};
+
+export const ModalDanger: Story = {
+  args: {
+    color: 'danger',
+  },
+};
+
+export const ModalSuccess: Story = {
+  args: {
+    color: 'success',
+  },
+};
+

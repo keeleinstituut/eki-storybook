@@ -124,4 +124,70 @@
       }
     }
   }
+
+  &--danger {
+    &--soft {
+      background-color: $color-soft-danger-bg;
+
+      h2 {
+        color: $color-soft-danger;
+      }
+
+      svg {
+        color: $color-soft-danger;
+      }
+    }
+
+    &--outlined {
+      border: 1px solid $color-outlined-danger;
+
+      h2 {
+        color: $color-outlined-danger;
+      }
+    }
+  }
+
+  &--success {
+    &--soft {
+      background-color: $color-soft-success-bg;
+
+      h2 {
+        color: $color-soft-success;
+      }
+
+      svg {
+        color: $color-soft-success;
+      }
+    }
+
+    &--outlined {
+      border: 1px solid $color-outlined-success;
+
+      h2 {
+        color: $color-outlined-success;
+      }
+    }
+  }
+
+  &--warning {
+    &--soft {
+      background-color: $color-soft-warning-bg;
+
+      h2 {
+        color: $color-soft-warning;
+      }
+
+      svg {
+        color: $color-soft-warning;
+      }
+    }
+
+    &--outlined {
+      border: 1px solid $color-outlined-warning-border;
+
+      h2 {
+        color: $color-outlined-warning;
+      }
+    }
+  }
 }
