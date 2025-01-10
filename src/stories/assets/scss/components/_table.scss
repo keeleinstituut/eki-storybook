@@ -1,0 +1,117 @@
+@import '../main';
+
+.table {
+  width: 100%;
+  color: $color-primary;
+
+  &__container {
+    width: 100%;
+    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.20);
+    overflow: scroll2;
+  }
+
+  &__head {
+    padding: 16px;
+  }
+
+  &__title {
+    color: $color-primary;
+    font-weight: 500;
+    font-size: 20px;
+    letter-spacing: 0.03px;
+  }
+
+  &__description {
+    color: $color-primary;
+    font-weight: 400;
+    font-size: 16px;
+  }
+
+  &__title,
+  &__description {
+    line-height: normal;
+  }
+
+  thead {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+      &:hover {
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+
+      &:focus {
+        background-color: $color-secondary;
+      }
+    }
+  }
+
+  tr {
+    &.selected {
+      background-color: $color-secondary;
+    }
+  }
+
+  td,
+  th {
+    padding: 16px;
+    vertical-align: middle;
+
+    &.small {
+      padding: 6px 16px;
+
+      .table__checkbox {
+        &::before {
+          width: 18px;
+          height: 18px;
+        }
+      }
+    }
+
+    &.small
+    &.table__cell--checkbox {
+      padding: 4px 8px;
+    }
+  }
+
+  th {
+    font-weight: 400;
+    font-size: 12px;
+  }
+
+  &__checkbox {
+    position: relative;
+    appearance: none;
+    margin: 0;
+    padding: 9px;
+    cursor: pointer;
+
+    &:focus {
+      border-radius: 999px;
+    }
+
+    &::before {
+      display: block;
+      width: 20px;
+      height: 20px;
+      border: 2px solid $color-primary;
+      border-radius: 3px;
+      content: '';
+    }
+
+    &:checked {
+      &::after {
+        position: absolute;
+        top: 10px;
+        display: block;
+        transform: rotate(45deg);
+        border-radius: 0;
+        content: '';
+      }
+    }
+  }
+}
