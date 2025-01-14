@@ -4,6 +4,7 @@
   "version": "8.1.5",
   "type": "module",
   "scripts": {
+    "start": "storybook dev -p 6006",
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",

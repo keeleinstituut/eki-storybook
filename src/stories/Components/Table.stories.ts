@@ -28,6 +28,12 @@ const meta: Meta<Table> = {
       description: 'Description text of the table',
       if: { arg: 'showDescription', eq: true },
     },
+    tableSize : {
+      name: 'Table size',
+      control: { type: 'select' },
+      options: ['small', 'medium'],
+      description: 'Choose table size',
+    },
     columns: {
       name: 'Number of columns',
       control: { type: 'range', min: 1, max: 10, step: 1 },
@@ -46,29 +52,57 @@ const meta: Meta<Table> = {
     smallHeadSwitch: {
       name: 'Small table head cells',
       control: 'boolean',
-      description: 'Switch to small table head cells'
+      description: 'Switch to small table head cells',
+      if: { arg: 'tableSize', eq: 'medium' },
     },
     smallBodySwitch: {
       name: 'Small body cells',
       control: 'boolean',
-      description: 'Switch to small table body cells'
+      description: 'Switch to small table body cells',
+      if: { arg: 'tableSize', eq: 'medium' },
     },
     checkbox: {
       name: 'Checkbox',
       control: 'boolean',
       description: 'Make table rows selectable'
     },
+    expandable: {
+      name: 'Toggle expandable row',
+      control: 'boolean',
+      description: 'Toggle if rows are expandable'
+    },
+    expandableText: {
+      name: 'Expanded row text',
+      control: 'text',
+      description: 'Add text to the expanded rows',
+      if: { arg: 'expandable', eq: true },
+    },
+    overflow: {
+      name: 'Toggle overflow',
+      control: 'boolean',
+      description: 'Toggle table overflow',
+    },
+    pagination: {
+      name: 'Pagination',
+      control: 'boolean',
+      description: 'Toggle pagination'
+    },
   },
   args: {
     title: 'Table Title',
-    columns: 3,
-    rows: 3,
     showDescription: false,
     description: 'Additional description if required',
-    showHead: false,
+    tableSize: 'medium',
+    columns: 3,
+    rows: 3,
+    showHead: true,
     smallHeadSwitch: false,
     smallBodySwitch: false,
     checkbox: false,
+    expandable: false,
+    expandableText: 'Add text',
+    overflow: false,
+    pagination: false,
   },
   render: (args) => {
     return createTable(args);
