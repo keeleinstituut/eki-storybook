@@ -7,6 +7,9 @@ export interface Table {
   columns: number;
   rows: number;
   showDescription: boolean;
+  cellText: string;
+  cellSecondInstance: boolean;
+  cellSecondInstanceText: string;
   tableSize: 'small' | 'medium';
   description: string;
   smallHeadSwitch: boolean;
@@ -15,7 +18,10 @@ export interface Table {
   expandable: boolean;
   expandableText: string;
   showHead: boolean;
+  sortSwitch: boolean;
+  sort: 'left' | 'right' | 'both';
   overflow: boolean;
+  iconRow: boolean;
   pagination: boolean;
 }
 
@@ -23,8 +29,11 @@ export const createTable = ({
   title = 'Table Title',
   columns = 3,
   rows = 3,
-  showDescription = false,
+  showDescription = true,
   description = 'Additional description if required',
+  cellText = 'Cell',
+  cellSecondInstance = false,
+  cellSecondInstanceText = 'Typography',
   tableSize = 'medium',
   smallHeadSwitch = false,
   smallBodySwitch = false,
@@ -32,21 +41,21 @@ export const createTable = ({
   expandable = false,
   expandableText = 'Add text',
   showHead = true,
+  sortSwitch = false,
+  sort = 'left',
   overflow = false,
+  iconRow = false,
   pagination = false,
 }: Table): HTMLDivElement => {
-  const wrapper = document.createElement('div');
   const container = document.createElement('div');
   const tableHead = document.createElement('div');
   const table = document.createElement('table');
   const tbody = document.createElement('tbody');
 
-  wrapper.classList.add('table__wrapper');
   container.classList.add('table__container');
   tableHead.classList.add('table__head');
   table.classList.add('table');
   tableHead.innerHTML = `<div class="table__title">${title}</div>`;
-
   if (showDescription) tableHead.innerHTML += `<span class="table__description">${description}</span>`;
 
   let rowSelector: HTMLElement | null = null;
@@ -54,14 +63,11 @@ export const createTable = ({
     rowSelector = document.createElement('div');
     rowSelector.classList.add('table__selector');
     rowSelector.style.display = 'none';
-
     const selectedCount = document.createElement('span');
     selectedCount.classList.add('table__selected-count');
     selectedCount.textContent = '0 items selected';
-
     const trashButton = document.createElement('button');
     trashButton.classList.add('table__trash-btn');
-    
     const trashIcon = document.createElement('i');
     trashIcon.setAttribute('data-feather', 'trash-2');
     trashIcon.classList.add('table__trash-icon');
@@ -90,52 +96,72 @@ export const createTable = ({
 
     for (let i = 0; i < columns; i++) {
       const th = document.createElement('th');
-      if (checkbox && i === 0) {
-        th.classList.add('table__cell', 'table__cell--checkbox');
-        th.innerHTML = `<input type="checkbox" class="table__checkbox"> Head`;
-        const headerCheckbox = th.querySelector('input') as HTMLInputElement;
+      th.classList.add('table__cell');
+      let thContent = '';
 
+      if (checkbox && i === 0) {
+        const headerCheckbox = document.createElement('input');
+        headerCheckbox.type = 'checkbox';
+        headerCheckbox.classList.add('table__checkbox');
+        th.classList.add('table__cell--checkbox');
         headerCheckbox.addEventListener('change', (e) => {
           const checkboxes = table.querySelectorAll('.table__checkbox') as NodeListOf<HTMLInputElement>;
           const isChecked = (e.target as HTMLInputElement).checked;
-          checkboxes.forEach(checkbox => {
+          checkboxes.forEach((checkbox) => {
             checkbox.checked = isChecked;
             checkbox.closest('tr')?.classList.toggle('selected', isChecked);
           });
           updateSelectedCount();
-          if (isChecked) {
-            headerRow.classList.add('selected');
-          } else {
-            headerRow.classList.remove('selected');
-          }
         });
-      } else {
-        th.textContent = 'Head';
+        th.appendChild(headerCheckbox);
       }
 
-      if (smallHeadSwitch || tableSize === 'small') th.classList.add('small'); // Add 'small' class if tableSize is 'small'
+      if (sortSwitch) {
+        if (sort === 'left' || sort === 'both') thContent += `<i data-feather="arrow-down" class="table__sort-icon"></i> `;
+        thContent += `<span>Head</span>`;
+        if (sort === 'right' || sort === 'both') thContent += ` <i data-feather="arrow-down" class="table__sort-icon"></i>`;
+      } else {
+        thContent = `<span>Head</span>`;
+      }
+
+      th.innerHTML += thContent;
+      if (smallHeadSwitch || tableSize === 'small') th.classList.add('small');
       headerRow.appendChild(th);
     }
 
-    headerRow.addEventListener('click', () => {
-      const isSelected = headerRow.classList.contains('selected');
-      if (isSelected) {
-        headerRow.classList.remove('selected');
-        const checkboxes = table.querySelectorAll('.table__checkbox') as NodeListOf<HTMLInputElement>;
-        checkboxes.forEach(checkbox => {
-          checkbox.checked = false;
-          checkbox.closest('tr')?.classList.remove('selected');
-        });
-      } else {
-        headerRow.classList.add('selected');
-        const checkboxes = table.querySelectorAll('.table__checkbox') as NodeListOf<HTMLInputElement>;
-        checkboxes.forEach(checkbox => {
-          checkbox.checked = true;
-          checkbox.closest('tr')?.classList.add('selected');
-        });
-      }
-      updateSelectedCount();
-    });
+    if (checkbox) {
+      headerRow.addEventListener('click', () => {
+        const isSelected = headerRow.classList.contains('selected');
+        if (isSelected) {
+          headerRow.classList.remove('selected');
+          const checkboxes = table.querySelectorAll('.table__checkbox') as NodeListOf<HTMLInputElement>;
+          checkboxes.forEach((checkbox) => {
+            checkbox.checked = false;
+            checkbox.closest('tr')?.classList.remove('selected');
+          });
+        } else {
+          headerRow.classList.add('selected');
+          const checkboxes = table.querySelectorAll('.table__checkbox') as NodeListOf<HTMLInputElement>;
+          checkboxes.forEach((checkbox) => {
+            checkbox.checked = true;
+            checkbox.closest('tr')?.classList.add('selected');
+          });
+        }
+        updateSelectedCount();
+      });
+    }
+
+    if (overflow) {
+      const emptyTh = document.createElement('th');
+      emptyTh.classList.add('table__cell');
+      headerRow.appendChild(emptyTh);
+    }
+
+    if (iconRow) {
+      const emptyIconTh = document.createElement('th');
+      emptyIconTh.classList.add('table__cell');
+      headerRow.appendChild(emptyIconTh);
+    }
 
     thead.appendChild(headerRow);
     table.appendChild(thead);
@@ -164,12 +190,10 @@ export const createTable = ({
 
       button.addEventListener('click', (e) => {
         e.stopPropagation();
-      
         expandedRow.style.display = expandedRow.style.display === 'table-row' ? 'none' : 'table-row';
         const isExpanded = expandedRow.style.display === 'table-row';
         icon.setAttribute('data-feather', isExpanded ? 'chevron-up' : 'chevron-down');
         feather.replace();
-        
         row.classList.toggle('table__row--expanded', isExpanded);
       });
     } else {
@@ -178,78 +202,165 @@ export const createTable = ({
 
     for (let j = 0; j < columns; j++) {
       const td = document.createElement('td');
+      const cellWrapper = document.createElement('span');
+      cellWrapper.classList.add('table__cell__wrapper');
+      
       if (checkbox && j === 0) {
-        td.innerHTML = `<input type="checkbox" class="table__checkbox"> Cell`;
-        td.querySelector('input')?.addEventListener('change', (e) => {
-          row.classList.toggle('selected', (e.target as HTMLInputElement).checked);
+        const checkboxInput = document.createElement('input');
+        checkboxInput.type = 'checkbox';
+        checkboxInput.classList.add('table__checkbox');
+        td.appendChild(checkboxInput);
+
+        td.classList.add('table__cell--checkbox');
+        
+        const content = cellSecondInstance 
+          ? `<span>${cellText}</span><span class="table__cell__instance">${cellSecondInstanceText}</span>`
+          : `<span>${cellText}</span>`;
+      
+        cellWrapper.innerHTML = content;
+
+        checkboxInput.addEventListener('change', (e) => {
+          const isChecked = (e.target as HTMLInputElement).checked;
+          row.classList.toggle('selected', isChecked);
           updateSelectedCount();
-          updateHeaderSelection();
         });
       } else {
-        td.textContent = 'Cell';
+        const content = cellSecondInstance 
+          ? `<span>${cellText}</span><span class="table__cell__instance">${cellSecondInstanceText}</span>`
+          : `<span>${cellText}</span>`;
+        
+        cellWrapper.innerHTML = content;
       }
-      if (smallBodySwitch || tableSize === 'small') td.classList.add('small'); // Add 'small' class if tableSize is 'small'
+
+      td.appendChild(cellWrapper);
+
+      if (smallBodySwitch || tableSize === 'small') td.classList.add('small');
       td.classList.add('table__cell');
       row.appendChild(td);
+    }
 
-      if (checkbox) {
-        row.addEventListener('click', (e) => {
-          const checkbox = row.querySelector('.table__checkbox') as HTMLInputElement;
-          if (e.target !== checkbox) {
-            checkbox.checked = !checkbox.checked;
-          }
-          row.classList.toggle('selected', checkbox.checked);
-          updateSelectedCount();
-          updateHeaderSelection();
-        });
-      }
+    if (checkbox) {
+      row.addEventListener('click', (e) => {
+        const checkbox = row.querySelector('.table__checkbox') as HTMLInputElement;
+        if (e.target !== checkbox) checkbox.checked = !checkbox.checked;
+        row.classList.toggle('selected', checkbox.checked);
+        updateSelectedCount();
+      });
     }
 
     if (overflow) {
       const overflowTd = document.createElement('td');
       overflowTd.classList.add('table__overflow');
-
       const overflowContainer = document.createElement('span');
-      
       const overflowIcon = document.createElement('i');
       overflowIcon.setAttribute('data-feather', 'more-vertical');
       overflowContainer.appendChild(overflowIcon);
       row.appendChild(overflowTd);
-
       overflowTd.appendChild(overflowContainer);
     }
+
+    if (iconRow) {
+      const iconTd = document.createElement('td');
+      iconTd.classList.add('table__cell', 'table__cell--icon');
+      const infoIcon = document.createElement('i');
+      infoIcon.setAttribute('data-feather', 'info');
+      iconTd.appendChild(infoIcon);
+      row.appendChild(iconTd);
+    }
+    
   }
 
   const updateSelectedCount = () => {
     const selectedRows = container.querySelectorAll('.table__row.selected').length;
     const selectedCount = container.querySelector('.table__selected-count') as HTMLElement;
     selectedCount.textContent = `${selectedRows} items selected`;
-
-    if (selectedRows > 0) {
-      rowSelector?.style.setProperty('display', 'flex');
-    } else {
-      rowSelector?.style.setProperty('display', 'none');
-    }
-  };
-
-  const updateHeaderSelection = () => {
-    const headerRow = table.querySelector('thead tr');
-    const checkboxes = table.querySelectorAll('.table__checkbox') as NodeListOf<HTMLInputElement>;
-    const allChecked = Array.from(checkboxes).every(checkbox => checkbox.checked);
-
-    if (allChecked) {
-      headerRow?.classList.add('selected');
-    } else {
-      headerRow?.classList.remove('selected');
-    }
+    rowSelector?.style.setProperty('display', selectedRows > 0 ? 'flex' : 'none');
   };
 
   table.appendChild(tbody);
   container.appendChild(table);
-  wrapper.appendChild(container);
+
+  if (tableSize === 'small') {
+    // Create pagination controls
+    const controlsContainer = document.createElement('div');
+    controlsContainer.classList.add('table__foot');
+
+    const dropdownContainer = document.createElement('div');
+    dropdownContainer.classList.add('table__foot__dropdown');
+  
+    // Create text for "Rows per page:"
+    const label = document.createElement('span');
+    label.textContent = 'Rows per page:';
+    label.classList.add('table__foot__label');
+  
+    const dropdown = document.createElement('select');
+    dropdown.classList.add('table__foot__select');
+    for (let i = 1; i <= rows; i++) {
+      const option = document.createElement('option');
+      option.value = String(i);
+      option.textContent = `${i}`;
+      dropdown.appendChild(option);
+    }
+
+    const defaultVisibleRows = Math.min(rows, rows);
+    dropdown.value = String(defaultVisibleRows);
+  
+    const rowCountIndicator = document.createElement('span');
+    rowCountIndicator.classList.add('table__foot__count');
+    rowCountIndicator.textContent = `1-${defaultVisibleRows} of ${rows}`;
+  
+    const chevronContainer = document.createElement('div');
+    chevronContainer.classList.add('table__foot__navigation');
+
+    const selectContainer = document.createElement('div');
+    selectContainer.classList.add('table__foot__select-container');
+  
+    const leftChevron = document.createElement('button');
+    leftChevron.classList.add('table__foot__chevron', 'table__foot__chevron--left');
+    leftChevron.innerHTML = `<i data-feather="chevron-left"></i>`;
+  
+    const rightChevron = document.createElement('button');
+    rightChevron.classList.add('table__foot__chevron', 'table__foot__chevron--right');
+    rightChevron.innerHTML = `<i data-feather="chevron-right"></i>`;
+  
+    dropdownContainer.appendChild(label);
+    selectContainer.appendChild(dropdown);
+    dropdownContainer.appendChild(selectContainer);
+    controlsContainer.appendChild(dropdownContainer);
+    controlsContainer.appendChild(rowCountIndicator);
+    chevronContainer.appendChild(leftChevron);
+    chevronContainer.appendChild(rightChevron);
+    controlsContainer.appendChild(chevronContainer);
+    container.appendChild(controlsContainer);
+  
+    let currentStartIndex = 0;
+    let visibleRowsCount = Number(dropdown.value);
+  
+    const updateVisibleRows = () => {
+      const allRows = Array.from(tbody.querySelectorAll('.table__row')) as HTMLElement[];
+      allRows.forEach((row, index) => {
+        row.style.display =
+          index >= currentStartIndex && index < currentStartIndex + visibleRowsCount
+            ? ''
+            : 'none';
+      });
+  
+      const start = currentStartIndex + 1;
+      const end = Math.min(currentStartIndex + visibleRowsCount, rows);
+      rowCountIndicator.textContent = `${start}-${end} of ${rows}`;
+    };
+  
+    dropdown.addEventListener('change', () => {
+      visibleRowsCount = Number(dropdown.value);
+      currentStartIndex = 0;
+      updateVisibleRows();
+    });
+  
+    updateVisibleRows();
+  }  
 
   if (pagination) {
-    wrapper.appendChild(createPagination({
+    container.appendChild(createPagination({
       count: 7,
       shape: 'rounded',
       showArrows: true,
@@ -258,5 +369,5 @@ export const createTable = ({
   }
 
   setTimeout(() => feather.replace(), 100);
-  return wrapper;
+  return container;
 };

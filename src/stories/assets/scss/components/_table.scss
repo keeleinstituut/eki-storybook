@@ -19,6 +19,15 @@
     width: 100%;
     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.20);
     overflow: scroll;
+
+    .pagination {
+      order: 5;
+      
+      &__list {
+        justify-content: center;
+        padding: 8px 0;
+      }
+    }
   }
 
   &__head {
@@ -110,15 +119,58 @@
       }
     }
 
-    &.small
-    &.table__cell--checkbox {
-      padding: 4px 8px;
+    span {
+      vertical-align: middle;
     }
   }
 
   th {
     font-weight: 400;
     font-size: 12px;
+
+    svg {
+      width: 18px;
+      height: 18px;
+      margin: 0 4px;
+      vertical-align: middle;
+    }
+  }
+
+  td {
+    &.expandable-row {
+      padding: 24px;
+      white-space: normal;
+    }
+  }
+
+  &__cell {
+    &--checkbox {
+      padding: 7px 4px !important;
+    }
+
+    &.table__cell--icon {
+      svg {
+        width: 24px;
+        height: 24px;
+        margin-right: 0;
+      }
+    }
+
+    &__instance {
+      font-size: 14px;
+    }
+
+    svg {
+      width: 18px;
+      height: 18px;
+      margin-right: 10px;
+      vertical-align: sub;
+    }
+
+    &__wrapper {
+      display: inline-flex;
+      flex-direction: column;
+    }
   }
 
   &__checkbox {
@@ -178,6 +230,65 @@
         height: 20px;
         color: rgba(0, 0, 0, 0.56);
       }
+    }
+  }
+
+  &__foot {
+    order: 4;
+    display: flex;
+    gap: 26px;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    font-size: 12px;
+
+    svg {
+      width: 20px;
+      height: 20px;
+      color: rgba(0, 0, 0, 0.56);
+    }
+
+    &__label {
+      color: rgba(0, 0, 0, 0.6);
+    }
+
+    &__dropdown {
+      display: flex;
+      align-items: center;
+    }
+
+    &__select-container {
+      position: relative;
+      display: flex;
+
+      &::after {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid rgba(0, 0, 0, 0.56);
+        pointer-events: none;
+        content: '';
+      }
+    }
+
+    &__select {
+      padding: 4px 16px 4px 8px;
+      font-size: 12px;
+      outline: none;
+    }
+
+    &__chevron {
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    &__count {
+      color: $color-primary;
     }
   }
 }
