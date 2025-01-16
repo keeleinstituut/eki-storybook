@@ -1,7 +1,7 @@
 @import '../main';
 
 .table {
-  order: 3;
+  order: 2;
   width: 100%;
   color: $color-primary;
 
@@ -10,28 +10,30 @@
     flex-direction: column;
     gap: 8px;
     align-items: center;
-  }
-
-  &__container {
-    display: flex;
-    gap: 8px;
-    flex-direction: column;
-    width: 100%;
     box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.12), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.20);
-    overflow: scroll;
 
     .pagination {
       order: 5;
+      padding-bottom: 8px;
       
       &__list {
         justify-content: center;
-        padding: 8px 0;
       }
     }
   }
 
+  &__container {
+    order: 3;
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    width: 100%;
+    overflow-x: auto;
+  }
+
   &__head {
     order: 1;
+    width: 100%;
     padding: 16px;
   }
 
@@ -40,6 +42,7 @@
     gap: 18px;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
     height: 72px;
     padding: 8px 16px;
     font-size: 12px;
@@ -113,8 +116,8 @@
 
       .table__checkbox {
         &::before {
-          width: 18px;
-          height: 18px;
+          width: 16px;
+          height: 16px;
         }
       }
     }
@@ -153,6 +156,7 @@
         width: 24px;
         height: 24px;
         margin-right: 0;
+        opacity: .75;
       }
     }
 
@@ -177,7 +181,7 @@
     position: relative;
     appearance: none;
     margin: 0;
-    padding: 9px !important;
+    padding: 10px !important;
     cursor: pointer;
 
     &:focus {
@@ -186,8 +190,8 @@
 
     &::before {
       display: block;
-      width: 20px;
-      height: 20px;
+      width: 18px;
+      height: 18px;
       border: 2px solid $color-primary;
       border-radius: 3px;
       content: '';

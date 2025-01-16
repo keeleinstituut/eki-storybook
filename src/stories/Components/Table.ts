@@ -47,12 +47,16 @@ export const createTable = ({
   iconRow = false,
   pagination = false,
 }: Table): HTMLDivElement => {
-  const container = document.createElement('div');
+  const tableWrapper = document.createElement('div');
+  const tableContainer = document.createElement('div');
   const tableHead = document.createElement('div');
   const table = document.createElement('table');
   const tbody = document.createElement('tbody');
 
-  container.classList.add('table__container');
+  tableWrapper.appendChild(tableContainer);
+
+  tableWrapper.classList.add('table__wrapper');
+  tableContainer.classList.add('table__container');
   tableHead.classList.add('table__head');
   table.classList.add('table');
   tableHead.innerHTML = `<div class="table__title">${title}</div>`;
@@ -84,10 +88,10 @@ export const createTable = ({
 
     rowSelector.appendChild(selectedCount);
     rowSelector.appendChild(trashButton);
-    container.appendChild(rowSelector);
+    tableWrapper.appendChild(rowSelector);
   }
 
-  container.appendChild(tableHead);
+  tableWrapper.appendChild(tableHead);
 
   if (showHead) {
     const thead = document.createElement('thead');
@@ -271,24 +275,22 @@ export const createTable = ({
   }
 
   const updateSelectedCount = () => {
-    const selectedRows = container.querySelectorAll('.table__row.selected').length;
-    const selectedCount = container.querySelector('.table__selected-count') as HTMLElement;
+    const selectedRows = tableContainer.querySelectorAll('.table__row.selected').length;
+    const selectedCount = tableWrapper.querySelector('.table__selected-count') as HTMLElement;
     selectedCount.textContent = `${selectedRows} items selected`;
     rowSelector?.style.setProperty('display', selectedRows > 0 ? 'flex' : 'none');
   };
 
   table.appendChild(tbody);
-  container.appendChild(table);
+  tableContainer.appendChild(table);
 
   if (tableSize === 'small') {
-    // Create pagination controls
     const controlsContainer = document.createElement('div');
     controlsContainer.classList.add('table__foot');
 
     const dropdownContainer = document.createElement('div');
     dropdownContainer.classList.add('table__foot__dropdown');
   
-    // Create text for "Rows per page:"
     const label = document.createElement('span');
     label.textContent = 'Rows per page:';
     label.classList.add('table__foot__label');
@@ -331,7 +333,7 @@ export const createTable = ({
     chevronContainer.appendChild(leftChevron);
     chevronContainer.appendChild(rightChevron);
     controlsContainer.appendChild(chevronContainer);
-    container.appendChild(controlsContainer);
+    tableWrapper.appendChild(controlsContainer);
   
     let currentStartIndex = 0;
     let visibleRowsCount = Number(dropdown.value);
@@ -360,7 +362,7 @@ export const createTable = ({
   }  
 
   if (pagination) {
-    container.appendChild(createPagination({
+    tableWrapper.appendChild(createPagination({
       count: 7,
       shape: 'rounded',
       showArrows: true,
@@ -369,5 +371,5 @@ export const createTable = ({
   }
 
   setTimeout(() => feather.replace(), 100);
-  return container;
+  return tableWrapper;
 };

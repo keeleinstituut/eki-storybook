@@ -179,6 +179,13 @@ export const SmallTable: Story = {
   }
 };
 
+export const SortTable: Story = {
+  args: {
+    sortSwitch: true,
+    sort: 'right',
+  }
+};
+
 export const SelectableTable: Story = {
   args: {
     checkbox: true,
@@ -201,5 +208,12 @@ export const IconRowTable: Story = {
   args: {
     cellText: '<i data-feather="check-circle"></i> Cell',
     iconRow: true,
+  }
+};
+
+export const SecondInstanceTable: Story = {
+  args: {
+    cellSecondInstance: true,
+    cellSecondInstanceText: 'Typography',
   }
 };
