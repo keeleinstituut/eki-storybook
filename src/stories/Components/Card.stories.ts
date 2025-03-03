@@ -118,3 +118,23 @@ type Story = StoryObj<Card & { cardCount: number }>;
 export const DefaultCard: Story = {
   args: {},
 };
+
+export const CardWithMedia: Story = {
+  args: {
+    cardMediaDisplay: true,
+  },
+};
+
+export const CardWithActions: Story = {
+  args: {
+    cardMediaDisplay: true,
+    cardDateDisplay: true,
+    displayAvatar: true,
+  },
+};
+
+export const CardWithAvatar: Story = {
+  args: {
+    titleAvatar: true,
+  },
+};
