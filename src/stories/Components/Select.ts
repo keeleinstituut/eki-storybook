@@ -13,11 +13,30 @@ export interface Select {
   valueDisplayStyle: string;
 }
 
-export const createSelect = ({ size, addLabel, optionsCount, selectState, multipleSelect, width, valueDisplayStyle }: Select): HTMLDivElement => {
+export const createSelect = ({
+  size,
+  addLabel,
+  optionsCount,
+  selectState,
+  multipleSelect,
+  width,
+  valueDisplayStyle,
+  checkbox,
+}: Select): HTMLDivElement => {
   const wrapper = document.createElement("div");
-  wrapper.classList.add("select__wrapper", `select__wrapper--${size}`, `select__wrapper--${selectState}`, `dropdown--${width}`, `select__wrapper__values--${valueDisplayStyle}`);
+  wrapper.classList.add(
+    "select__wrapper",
+    `select__wrapper--${size}`,
+    `select__wrapper--${selectState}`,
+    `dropdown--${width}`,
+    `select__wrapper__values--${valueDisplayStyle}`
+  );
 
-  if ( addLabel === true ) {
+  if (checkbox === true) {
+    wrapper.classList.add("select__wrapper--checkbox");
+  }
+
+  if (addLabel === true) {
     const labelElement = document.createElement("label");
     labelElement.textContent = "Label";
     labelElement.className = "select__label";
@@ -25,7 +44,7 @@ export const createSelect = ({ size, addLabel, optionsCount, selectState, multip
     wrapper.appendChild(labelElement);
   }
 
-  if ( addLabel === false ) {
+  if (addLabel === false) {
     wrapper.classList.add("select__wrapper--no-label");
   }
 
@@ -57,22 +76,56 @@ export const createSelect = ({ size, addLabel, optionsCount, selectState, multip
 
   wrapper.appendChild(selectElement);
 
+  selectElement.addEventListener("change", () => {
+    const choicesInner = wrapper.querySelector('.choices__inner');
+    if (choicesInner && selectElement.selectedOptions.length > 0) {
+      choicesInner.classList.add('is-selected');
+    } else if (choicesInner && selectElement.selectedOptions.length === 0) {
+      choicesInner.classList.remove('is-selected');
+    }
+  });
+  
   setTimeout(() => {
     const choices = new Choices(selectElement, {
+      allowHTML: true,
       searchEnabled: false,
       itemSelectText: "",
       shouldSort: false,
+      searchChoices: false,
       placeholder: true,
       placeholderValue: "Label",
-      removeItemButton: false,
-      duplicateItemsAllowed: false,
-      removeItems: false,
+      removeItemButton: true,
+      removeItems: true,
+      closeDropdownOnSelect: false,
+      singleModeForMultiSelect: true,
+      renderSelectedChoices: "always",
     });
-
+  
     if (selectState === "disabled") {
       choices.disable();
     }
-  }, 0);
+  
+    (selectElement as HTMLSelectElement).addEventListener('removeItem', () => {
+      const choicesInner = wrapper.querySelector('.choices__inner');
 
+      const selectedItems = choices.getValue(true);
+
+      if (choicesInner && selectedItems.length === 0) {
+        choicesInner.classList.remove('is-selected');
+      }
+    });
+  
+    (selectElement as HTMLSelectElement).addEventListener('change', () => {
+      const choicesInner = wrapper.querySelector('.choices__inner');
+      const selectedItems = choices.getValue(true);
+  
+      if (choicesInner && selectedItems.length > 0) {
+        choicesInner.classList.add('is-selected');
+      } else if (choicesInner && selectedItems.length === 0) {
+        choicesInner.classList.remove('is-selected');
+      }
+    });
+  }, 0);
+  
   return wrapper;
 };
