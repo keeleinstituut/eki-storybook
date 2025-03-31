@@ -97,7 +97,6 @@ export const createSelect = ({
       removeItemButton: true,
       removeItems: true,
       closeDropdownOnSelect: false,
-      singleModeForMultiSelect: true,
       renderSelectedChoices: "always",
     });
   
@@ -105,27 +104,53 @@ export const createSelect = ({
       choices.disable();
     }
   
-    (selectElement as HTMLSelectElement).addEventListener('removeItem', () => {
-      const choicesInner = wrapper.querySelector('.choices__inner');
-
+    if (multipleSelect) {
+      const dropdown = wrapper.querySelector(".choices__list--dropdown") as HTMLElement;
+  
+      if (dropdown) {
+        dropdown.addEventListener("click", (event) => {
+          const target = event.target as HTMLElement;
+  
+          if (target.classList.contains("choices__item--selectable")) {
+            const value = target.getAttribute("data-value");
+  
+            if (value) {
+              const selectedValues = choices.getValue(true);
+  
+              if (selectedValues.includes(value)) {
+                choices.removeActiveItemsByValue(value);
+  
+                event.stopPropagation();
+                choices.showDropdown(true);
+              }
+            }
+          }
+        });
+      }
+    }
+  
+    (selectElement as HTMLSelectElement).addEventListener("removeItem", () => {
+      const choicesInner = wrapper.querySelector(".choices__inner");
       const selectedItems = choices.getValue(true);
-
+  
       if (choicesInner && selectedItems.length === 0) {
-        choicesInner.classList.remove('is-selected');
+        choicesInner.classList.remove("is-selected");
       }
     });
   
-    (selectElement as HTMLSelectElement).addEventListener('change', () => {
-      const choicesInner = wrapper.querySelector('.choices__inner');
+    (selectElement as HTMLSelectElement).addEventListener("change", () => {
+      const choicesInner = wrapper.querySelector(".choices__inner");
       const selectedItems = choices.getValue(true);
   
       if (choicesInner && selectedItems.length > 0) {
-        choicesInner.classList.add('is-selected');
+        choicesInner.classList.add("is-selected");
       } else if (choicesInner && selectedItems.length === 0) {
-        choicesInner.classList.remove('is-selected');
+        choicesInner.classList.remove("is-selected");
       }
     });
   }, 0);
+  
+  
   
   return wrapper;
 };

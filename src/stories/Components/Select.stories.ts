@@ -128,3 +128,10 @@ export const MultipleCheckboxSelect: Story = {
     checkbox: true,
   },
 };
+
+export const MultipleSelectChip: Story = {
+  args: {
+    multipleSelect: true,
+    valueDisplayStyle: 'chip',
+  },
+};
