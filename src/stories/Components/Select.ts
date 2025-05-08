@@ -11,6 +11,7 @@ export interface Select {
   width: string;
   multipleSelect: boolean;
   valueDisplayStyle: string;
+  removeBorder: boolean;
 }
 
 export const createSelect = ({
@@ -22,6 +23,7 @@ export const createSelect = ({
   width,
   valueDisplayStyle,
   checkbox,
+  removeBorder
 }: Select): HTMLDivElement => {
   const wrapper = document.createElement("div");
   wrapper.classList.add(
@@ -34,6 +36,10 @@ export const createSelect = ({
 
   if (checkbox === true) {
     wrapper.classList.add("select__wrapper--checkbox");
+  }
+
+  if (removeBorder === true) {
+    wrapper.classList.add("select__wrapper--no-border");
   }
 
   if (addLabel === true) {

@@ -72,6 +72,12 @@
       }
     }
 
+    &--no-border {
+      .choices__inner {
+        border: 0;
+      }
+    }
+
     .choices {
       .choices {
         &__inner {

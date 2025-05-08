@@ -65,6 +65,12 @@ const meta: Meta<Select> = {
       if: { arg: 'multipleSelect', eq: true },
       table: { category: 'Select settings' },
     },
+    removeBorder: {
+      name: "Remove border",
+      description: "Remove border from the select element",
+      control: "boolean",
+      table: { category: 'Select settings' },
+    }
   },
 
   args: {
@@ -76,6 +82,7 @@ const meta: Meta<Select> = {
     valueDisplayStyle: 'default',
     checkbox: false,
     width: 'default',
+    removeBorder: false,
   },
 
   render: (args) => {
@@ -133,5 +140,11 @@ export const MultipleSelectChip: Story = {
   args: {
     multipleSelect: true,
     valueDisplayStyle: 'chip',
+  },
+};
+
+export const SelectWithoutBorder: Story = {
+  args: {
+    removeBorder: true
   },
 };
